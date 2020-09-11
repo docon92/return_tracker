@@ -10,18 +10,28 @@ import openpyxl
 
 # TODO: load the file from script argument
 # Load the excel file in this dir, extract data on both RRSP,TFSA Sheets
-df = openpyxl.load_workbook(r'template_accounts.xlsx',data_only=True)
+df = openpyxl.load_workbook(r'R-A-Total.xlsx',data_only=True)
 TFSA = df['TFSA']
 RRSP = df['RRSP']
 
 #print(TFSA.max_row)
-#TODO: Detect actual end of file. TFSA.max_row will give you
-#      something larger than reality if there are blank cells
+# Detect actual end of file. TFSA.max_row will give you
+# something larger than reality if there are blank cells
 #
 # Note that the first row is given to column titles, Data starts at row 2
 
 ROW_START = 2
-MAX_ROW = 33
+MAX_ROW = ROW_START
+
+for row in range (ROW_START,TFSA.max_row) :
+    B_row = 'B' + str(row)
+    if TFSA[B_row].value is None:
+        break
+    else:
+        MAX_ROW+=1
+#        print(MAX_ROW)
+MAX_ROW+=1
+print(MAX_ROW)
 
 #  Initialize Datasets for plotting
 
