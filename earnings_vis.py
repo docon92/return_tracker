@@ -6,6 +6,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import pandas as pd
 import openpyxl
+import mpld3
+from mpld3 import plugins
 
 
 # TODO: load the file from script argument
@@ -13,6 +15,7 @@ import openpyxl
 df = openpyxl.load_workbook(r'R-A-Total.xlsx',data_only=True)
 TFSA = df['TFSA']
 RRSP = df['RRSP']
+Margin = df['Margin']
 
 #print(TFSA.max_row)
 # Detect actual end of file. TFSA.max_row will give you
@@ -37,8 +40,10 @@ print(MAX_ROW)
 
 TFSA_val = []
 RRSP_val = []
+Margin_val = []
 TFSA_cont = []
 RRSP_cont= []
+Margin_cont= []
 Total_val = []
 Total_cont = []
 Total_earn = []
@@ -51,14 +56,17 @@ for row in range(ROW_START, MAX_ROW):
     Data2 = RRSP[B_row].value
     Data3 = TFSA[C_row].value
     Data4 = RRSP[C_row].value
+    Data5 = Margin[B_row].value
+    Data6 = Margin[C_row].value
     TFSA_val.append(Data1)
     RRSP_val.append(Data2)
-    TFSA_cont.append(Data3)
+    Margin_val.append(Data5)
+    Margin_cont.append(Data6)
     RRSP_cont.append(Data4)
-    Total_val.append(Data1+Data2)
-    Total_cont.append(Data3+Data4)
-    Total_earn.append((Data1+Data2)-(Data3+Data4))
-    print('MultiSheet Data: %s , %s , %s , %s' % (Data1, Data2,Data3,Data4))
+    Total_val.append(Data1+Data2+Data5)
+    Total_cont.append(Data3+Data4+Data6)
+    Total_earn.append((Data1+Data2+Data5)-(Data3+Data4+Data6))
+    #print('MultiSheet Data: %s , %s , %s , %s' % (Data1, Data2,Data3,Data4))
 
 # Make x axis length in years
 x=[]
@@ -79,7 +87,13 @@ plt.stackplot(x,y,colors=pal, alpha=0.8 )
 
 #plt.tick_params(labelbottom='off')
 #plt.tick_params(labelleft='off')
-plt.show()
+#plt.show()
+
+
+#plugins.connect(plt.figure())
+
+
+mpld3.show()
 
 
 
