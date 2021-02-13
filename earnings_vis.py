@@ -126,6 +126,7 @@ plt.setp(plot.get_xticklabels(), rotation=0, ha="center")
 plot.xaxis.set_major_formatter(date_form)
 #plot.stackplot(daterange,y)
 plt.grid()
+#plt.gca().yaxis.set_ticklabels([])
 plt.stackplot(daterange,y,colors=pal, alpha=0.8 )
 
 #plt.tick_params(labelbottom='off')

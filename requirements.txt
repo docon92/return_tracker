@@ -1,0 +1,7 @@
+numpy
+seaborn
+pandas
+openpyxl
+mpld3
+matplotlib
+datetime
